@@ -1,0 +1,43 @@
+﻿
+
+<button id="button1" class="btn btn-primary">測試按鈕</button>
+<div id="result" class="result"></div>
+<script>
+    var data1;
+    window.onload = function () {
+        jQuery.support.cors = true;
+        $.ajax({
+            url: 'https://localhost:44368/api/Values/5',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                alert("Successfully");
+                data1 = data;
+            },
+            error: function () {
+                alert("Error happened");
+            }
+
+        });
+    }
+
+    document.getElementById("button1").onclick = function () {
+        alert("5555");
+        writemessage();
+    };
+
+    function writemessage() {
+        $("#result").empty();
+        var result = "<table><th>Accountname</th><th>username</th>";
+        $.each(JSON.parse(data1), function (index, record) {
+            result += "<tr><td>" + record.Accountname + "</td><td>" + record.username + "</td></tr>";
+        });
+        result += "</table>";
+        $("#result").append(result);
+    }
+
+
+</script>
+
+
+
