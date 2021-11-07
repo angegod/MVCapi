@@ -12,6 +12,10 @@ namespace WebApplication1.Controllers
 {
     public class ValuesController : ApiController
     {
+        public static string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
+        SqlConnection mycon = new SqlConnection(conn);
+
+
         // GET api/values
         public IEnumerable<string> Get()
         {
@@ -23,10 +27,7 @@ namespace WebApplication1.Controllers
         public string  Get(int id)
         {
             string login = "select * from TeacherAccount";//connection
-            string conn = "Server=TR\\SQLEXPRESS;Database=Account;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
-
-            SqlConnection mycon = new SqlConnection(conn);
-
+           
             mycon.Open();
             SqlCommand mycom = new SqlCommand(login, mycon);
 
@@ -55,6 +56,8 @@ namespace WebApplication1.Controllers
             return Jsondata;
         }
 
+        
+
         // POST api/values
         public void Post([FromBody] string value)
         {
@@ -63,7 +66,10 @@ namespace WebApplication1.Controllers
         // PUT api/values/5
         public void Put(int id, [FromBody] string value)
         {
+
         }
+
+       
 
         // DELETE api/values/5
         public void Delete(int id)

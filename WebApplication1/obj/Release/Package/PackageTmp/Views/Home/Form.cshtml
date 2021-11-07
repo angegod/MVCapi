@@ -1,5 +1,16 @@
 ﻿
-
+<style>
+    table{
+        text-align:center;
+    }
+    th,td{
+        padding-left:5px;
+        padding-right:5px;
+    }
+    th{
+        color:red;
+    }
+</style>
 <button id="button1" class="btn btn-primary">測試按鈕</button>
 <div id="result" class="result"></div>
 <script>
@@ -7,11 +18,10 @@
     window.onload = function () {
         jQuery.support.cors = true;
         $.ajax({
-            url: 'https://localhost:44368/api/Values/5',
+            url: 'http://localhost:8088/api/Values/5',
             type: 'GET',
             dataType: 'json',
-            success: function (data) {
-                alert("Successfully");
+            success: function (data){
                 data1 = data;
             },
             error: function () {
@@ -22,7 +32,6 @@
     }
 
     document.getElementById("button1").onclick = function () {
-        alert("5555");
         writemessage();
     };
 
