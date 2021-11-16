@@ -7,6 +7,10 @@ namespace WebApplication1.Models
 {
     public class TeacherAccount
     {
+        public TeacherAccount()
+        {
+        }
+
         public TeacherAccount(int post_id,string post_Accountname,string post_password,string post_classcode,string post_username)
         {
             Id = post_id;
@@ -16,6 +20,11 @@ namespace WebApplication1.Models
             username = post_username;
         }
 
+        public void AddScore(float Scores)
+        {
+            Score = Scores;
+        }
+
         public int Id { get; set; }
         public string Accountname { get; set; }
 
@@ -23,5 +32,7 @@ namespace WebApplication1.Models
 
         public string classcode { get; set; }
         public string username { get; set; }
+
+        public float Score { get; set; }
     }
 }

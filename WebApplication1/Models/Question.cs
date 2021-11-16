@@ -20,6 +20,11 @@ namespace WebApplication1.Models
             difficulty = difficulty1;
         }
 
+        public void Addscorepercent(float score)
+        {
+            percentscore = score;
+        }
+
         public int id { get; set; }
         public string question { get; set; }
 
@@ -34,6 +39,8 @@ namespace WebApplication1.Models
         public string detailed { get; set; }
 
         public int difficulty { get; set; }
+
+        public float percentscore { get; set; }
 
 
 
