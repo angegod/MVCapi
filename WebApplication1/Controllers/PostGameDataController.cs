@@ -10,30 +10,31 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class PostGameDataController : ApiController
-    {
-        public IHttpActionResult Post()
-        {
-
-            return Ok();
-        }
-    }
+   
 
     public class PostGameRecordsController : ApiController
     {
 
         public static string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
         SqlConnection mycon = new SqlConnection(conn);
-        public IHttpActionResult Post([FromBody] GameRecords gamerecords)
+        public IHttpActionResult Post([FromBody] PostGradesRecord data)
         {
 
             if (!ModelState.IsValid)
                 return BadRequest("Not a valid model");
 
-            string insert = "insert into TeacherAccount (Accountname,Password,classcode,username) values(@Accountname,@Password,@classcode,@username)";
+            string insert = "insert into Record (Studentcode,Grades,Corrects,Incorrects,Playtime,GameRecords) values(@Studentcode,@Grades,@Corrects,@Incorrects,@Playtime,@GameRecords)";
             SqlCommand cmd = new SqlCommand(insert, mycon);
 
-            
+            cmd.Parameters.Add("@Studentcode", SqlDbType.VarChar, 200).Value = data.StudentCode;
+            cmd.Parameters.Add("@Grades", SqlDbType.Int).Value = data.grades;
+            cmd.Parameters.Add("@Corrects", SqlDbType.Int).Value = data.Corrects;
+            cmd.Parameters.Add("@Incorrects", SqlDbType.Int).Value = data.Incorrects;
+            cmd.Parameters.Add("@Playtime", SqlDbType.Time).Value = TimeSpan.Parse(data.PlayTime);//時間轉換
+            cmd.Parameters.Add("@GameRecords", SqlDbType.VarChar).Value = data.Records;
+
+            cmd.CommandType = CommandType.Text;
+
 
             mycon.Open();
             cmd.ExecuteNonQuery();
