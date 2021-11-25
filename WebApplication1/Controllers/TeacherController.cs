@@ -17,8 +17,7 @@ namespace WebApplication1.Controllers
         public static string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
         SqlConnection mycon = new SqlConnection(conn);
 
-        
-        //api/Teacher/Post
+
         public IHttpActionResult Post([FromBody]TeacherAccount Teacher)
         {
             if (!ModelState.IsValid)
@@ -27,10 +26,10 @@ namespace WebApplication1.Controllers
             string insert= "insert into TeacherAccount (Accountname,Password,classcode,username) values(@Accountname,@Password,@classcode,@username)";
             SqlCommand cmd = new SqlCommand(insert, mycon);
 
-            cmd.Parameters.Add("@Accountname", SqlDbType.VarChar, 200).Value = Teacher.Accountname;
-            cmd.Parameters.Add("@Password", SqlDbType.VarChar, 200).Value = Teacher.Password;
+            cmd.Parameters.Add("@Accountname",SqlDbType.VarChar, 200).Value = Teacher.Accountname;
+            cmd.Parameters.Add("@Password",SqlDbType.VarChar, 200).Value = Teacher.Password;
             cmd.Parameters.Add("@classcode",SqlDbType.VarChar, 200).Value = Teacher.classcode;
-            cmd.Parameters.Add("@username", SqlDbType.VarChar, 200).Value = Teacher.username;
+            cmd.Parameters.Add("@username",SqlDbType.VarChar, 200).Value = Teacher.username;
             cmd.CommandType = CommandType.Text;
 
             mycon.Open();

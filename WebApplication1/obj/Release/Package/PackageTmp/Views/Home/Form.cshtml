@@ -1,5 +1,4 @@
-﻿
-<style>
+﻿<style>
     table{
         text-align:center;
     }
@@ -18,7 +17,7 @@
     window.onload = function () {
         jQuery.support.cors = true;
         $.ajax({
-            url: 'http://localhost:8088/api/Values/5',
+            url: 'http://localhost:7700/api/Values/5',
             type: 'GET',
             dataType: 'json',
             success: function (data){

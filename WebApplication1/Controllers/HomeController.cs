@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
             {
                 
                 TeacherAccount t1 = new TeacherAccount(50, "Testaccount4","94879487","104","LF");
-                client.BaseAddress = new Uri("https://localhost:44368/api/Teacher");
+                client.BaseAddress = new Uri("http://203.64.134.239:7700/api/Teacher");
 
                 //HTTP POST
                 var postTask = client.PostAsJsonAsync<TeacherAccount>("Teacher", t1);
@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44368/api/TeacherDelete");
+                client.BaseAddress = new Uri("http://203.64.134.239:7700/api/TeacherDelete");
 
                 //HTTP POST
                 //TeacherAccount t1 = new TeacherAccount(7, "Testaccount4", "94879487", "104", "LF");
