@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 
 
-namespace Rich.Models
+namespace WebApplication1.Models
 {
 
     public class Question
@@ -13,7 +13,7 @@ namespace Rich.Models
 
     }
 
-    public class Questionchoose:Question
+    public class Questionchoose
     {
 
         public Questionchoose(int id1,string question1,string optionsA1,string optionsB1,string optionsC1,string answer1,string detailed1,int  difficulty1)
@@ -46,7 +46,7 @@ namespace Rich.Models
         
 
     }
-    public class Questionyesno:Question
+    public class Questionyesno
     {
         public Questionyesno(int id1, string question1, string answer1, string detailed1, int difficulty1)
         {

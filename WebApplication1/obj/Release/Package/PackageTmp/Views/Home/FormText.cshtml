@@ -2,16 +2,12 @@
 @{
     ViewBag.Title = "FormText";
 
-            if (TempData.ContainsKey("JsonData"))
-            {
-                <script>console.log('@TempData["JsonData"].ToString()');</script>
-            }
-    
+           
            
 }
 <button id="ApiPost" class="btn btn-success">提交</button>
 <button id="ApiDelete" class="btn btn-primary">刪除</button>
-<label>@TempData["JsonData"].ToString()</label>
+
 <script>
     document.getElementById("ApiPost").onclick = function () {
 

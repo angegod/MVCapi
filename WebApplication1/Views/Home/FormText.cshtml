@@ -2,16 +2,21 @@
 @{
     ViewBag.Title = "FormText";
 
-            if (TempData.ContainsKey("JsonData"))
-            {
-                <script>console.log('@TempData["JsonData"].ToString()');</script>
-            }
-    
-           
+    if (TempData.ContainsKey("Errors"))
+    {
+        <script>console.log(@TempData["Errors"].ToString());</script>
+        <script>console.log("Success");</script>
+    }
+    if (TempData.ContainsKey("data"))
+    {
+        <script>console.log(@TempData["data"]);</script>
+        <script>console.log("Failed");</script>
+    }
+
 }
 <button id="ApiPost" class="btn btn-success">提交</button>
 <button id="ApiDelete" class="btn btn-primary">刪除</button>
-<label>@TempData["JsonData"].ToString()</label>
+
 <script>
     document.getElementById("ApiPost").onclick = function () {
 

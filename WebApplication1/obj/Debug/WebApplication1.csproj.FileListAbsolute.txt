@@ -279,6 +279,5 @@ C:\Users\user\source\repos\MVCapi\WebApplication1\bin\zh-Hant\System.Web.WebPage
 C:\Users\user\source\repos\MVCapi\WebApplication1\bin\zh-Hant\System.Web.WebPages.Razor.resources.dll
 C:\Users\user\source\repos\MVCapi\WebApplication1\obj\Debug\WebApplication1.csproj.AssemblyReference.cache
 C:\Users\user\source\repos\MVCapi\WebApplication1\obj\Debug\WebApplication1.csproj.CoreCompileInputs.cache
-C:\Users\user\source\repos\MVCapi\WebApplication1\obj\Debug\WebApplication1.csproj.CopyComplete
 C:\Users\user\source\repos\MVCapi\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Users\user\source\repos\MVCapi\WebApplication1\obj\Debug\WebApplication1.pdb

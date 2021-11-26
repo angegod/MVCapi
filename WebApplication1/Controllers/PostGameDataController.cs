@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Data.SqlClient;
 using System.Data;
 using WebApplication1.Models;
+using Newtonsoft.Json;
 
 namespace WebApplication1.Controllers
 {
@@ -17,11 +18,10 @@ namespace WebApplication1.Controllers
 
         public static string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
         SqlConnection mycon = new SqlConnection(conn);
-        public IHttpActionResult Post([FromBody] PostGradesRecord data)
+        public void Post(string getdata)
         {
 
-            if (!ModelState.IsValid)
-                return BadRequest("Not a valid model");
+            GradesRecord data = JsonConvert.DeserializeObject<GradesRecord>(getdata);
 
             string insert = "insert into Record (Studentcode,Grades,Corrects,Incorrects,Playtime,GameRecords) values(@Studentcode,@Grades,@Corrects,@Incorrects,@Playtime,@GameRecords)";
             SqlCommand cmd = new SqlCommand(insert, mycon);
@@ -41,7 +41,7 @@ namespace WebApplication1.Controllers
             mycon.Close();
 
 
-            return Ok();
+           
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using Newtonsoft.Json;
+using System.Text;
+using System.Diagnostics;
 
 namespace WebApplication1.Controllers
 {
@@ -36,16 +38,24 @@ namespace WebApplication1.Controllers
             {
                 
                 TeacherAccount t1 = new TeacherAccount(50, "Testaccount4","94879487","104","LF");
-                client.BaseAddress = new Uri("http://203.64.134.239:7700/api/Teacher");
+                string data = JsonConvert.SerializeObject(t1);
 
+
+                HttpContent Postdata = new StringContent(data,Encoding.UTF8,"application/json");
+
+                TempData["data"] = data;
                 //HTTP POST
-                var postTask = client.PostAsJsonAsync<TeacherAccount>("Teacher", t1);
+                var postTask =  client.PostAsync(string.Format("http://localhost:8088/api/Teacher/Post"), Postdata);
                 
-
+;               
                 var result = postTask.GetAwaiter().GetResult();
                 if (result.IsSuccessStatusCode)
                 {
                     return RedirectToAction("FormText");
+                }
+                else
+                {
+                    TempData["Errors"] = result.ToString();
                 }
             }
 
@@ -81,16 +91,13 @@ namespace WebApplication1.Controllers
         public ActionResult FormDataTest()//測試用 之後會刪掉
         {
             List<TeacherAccount> list1 = new List<TeacherAccount>() {
-                new TeacherAccount(){Id=1,Accountname="Wolfking",classcode="101",Password="20200708",username="下野"},
-                new TeacherAccount(){Id=2,Accountname="Killer",classcode="102",Password="20200509",username="安哥"},
-                new TeacherAccount(){Id=3,Accountname="Ramon",classcode="103",Password="20200123",username="鐳門"},
-                new TeacherAccount(){Id=4,Accountname="TheSun",classcode="104",Password="20210926",username="聖文斯"},
+                new TeacherAccount(){Id=1,AccountName="Wolfking",classcode="101",Password="20200708",username="下野"},
+                new TeacherAccount(){Id=2,AccountName="Killer",classcode="102",Password="20200509",username="安哥"},
+                new TeacherAccount(){Id=3,AccountName="Ramon",classcode="103",Password="20200123",username="鐳門"},
+                new TeacherAccount(){Id=4,AccountName="TheSun",classcode="104",Password="20210926",username="聖文斯"},
             };
 
-            foreach(var i in list1)
-            {
-                i.AddScore((float)90.5);
-            }
+           
 
 
             string JsonData = JsonConvert.SerializeObject(list1);
