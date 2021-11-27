@@ -40,15 +40,15 @@ namespace WebApplication1.Controllers
                 TeacherAccount t1 = new TeacherAccount(50, "Testaccount4","94879487","104","LF");
                 string data = JsonConvert.SerializeObject(t1);
 
+                HttpContent Postdata = new StringContent(data);
 
-                HttpContent Postdata = new StringContent(data,Encoding.UTF8,"application/json");
-
-                TempData["data"] = data;
+                TempData["data"] = Postdata.ReadAsStringAsync().GetAwaiter().GetResult();
                 //HTTP POST
-                var postTask =  client.PostAsync(string.Format("http://localhost:8088/api/Teacher/Post"), Postdata);
+                var postTask =  client.PostAsync(string.Format("http://localhost:8088/api/Teacher/Post?id=5"), Postdata);
                 
 ;               
                 var result = postTask.GetAwaiter().GetResult();
+                TempData["Errors"] = result.ToString();
                 if (result.IsSuccessStatusCode)
                 {
                     return RedirectToAction("FormText");

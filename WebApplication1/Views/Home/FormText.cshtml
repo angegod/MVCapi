@@ -4,18 +4,29 @@
 
     if (TempData.ContainsKey("Errors"))
     {
-        <script>console.log(@TempData["Errors"].ToString());</script>
+
         <script>console.log("Success");</script>
     }
     if (TempData.ContainsKey("data"))
     {
-        <script>console.log(@TempData["data"]);</script>
-        <script>console.log("Failed");</script>
+        <script>console.log("@TempData["data"].ToString()");</script>
+        <script>console.log("success!!");</script>
     }
 
 }
 <button id="ApiPost" class="btn btn-success">提交</button>
 <button id="ApiDelete" class="btn btn-primary">刪除</button>
+@{
+    if (TempData.ContainsKey("data"))
+    {
+        <label>@TempData["data"].ToString()</label>
+    }
+    if (TempData.ContainsKey("Errors"))
+    {
+        <label>@TempData["Errors"].ToString()</label>
+    }
+
+}
 
 <script>
     document.getElementById("ApiPost").onclick = function () {

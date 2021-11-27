@@ -13,7 +13,7 @@ using System.Diagnostics;
 namespace WebApplication1.Controllers
 {
 
-    
+
     public class TeacherController : ApiController
     {
         public static string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
@@ -21,10 +21,12 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [Route("api/Teacher/Post")]
-        public HttpResponseMessage Post( string data)
+        public HttpResponseMessage Post(int id)
         {
             try
             {
+                HttpContent requestContent = Request.Content;
+                string data = requestContent.ReadAsStringAsync().GetAwaiter().GetResult();
                 TeacherAccount Teacher = JsonConvert.DeserializeObject<TeacherAccount>(data);
 
                 string insert = "insert into TeacherAccount (Accountname,Password,classcode,username) values(@Accountname,@Password,@classcode,@username)";
@@ -40,20 +42,20 @@ namespace WebApplication1.Controllers
                 cmd.ExecuteNonQuery();
                 mycon.Close();
 
-                return Request.CreateResponse(HttpStatusCode.OK, "true");
+                return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch
+            catch(Exception e)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Failed");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError,e.ToString());
             }
+
+
+
+
+
+
         }
-            
-
-        
-
 
 
     }
-
-    
 }
