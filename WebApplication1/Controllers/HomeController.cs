@@ -36,20 +36,27 @@ namespace WebApplication1.Controllers
            
             using (var client = new HttpClient())
             {
-                
-                TeacherAccount t1 = new TeacherAccount(50, "Testaccount4","94879487","104","LF");
-                string data = JsonConvert.SerializeObject(t1);
+                List<PostQuestionRecord> list1 = new List<PostQuestionRecord>();
 
-                HttpContent Postdata = new StringContent(data);
+                list1.Add(new PostQuestionRecord(1,"Choose", "110101_5C","A",true));
+                list1.Add(new PostQuestionRecord(2, "Choose", "110101_33C", "C", true));
+                list1.Add(new PostQuestionRecord(3, "Yesno", "110101_24Y", "O", false));
 
-                TempData["data"] = Postdata.ReadAsStringAsync().GetAwaiter().GetResult();
+                string q = JsonConvert.SerializeObject(list1);
+
+                PostGradesRecord p1=new PostGradesRecord("udzwt3fa",80,15,5,"06:50:00",q);
+
+                string data = JsonConvert.SerializeObject(p1);
+                //HttpContent Postdata = new StringContent(data);
+
+                TempData["data"] = data;
                 //HTTP POST
-                var postTask =  client.PostAsync(string.Format("http://localhost:8088/api/Teacher/Post?id=5"), Postdata);
+                var postTask =  client.GetAsync("http://localhost:7700/api/PostGameData/DataPost?getdata="+data);
                 
 ;               
                 var result = postTask.GetAwaiter().GetResult();
                 TempData["Errors"] = result.ToString();
-                if (result.IsSuccessStatusCode)
+                if (result.ToString()=="Success")
                 {
                     return RedirectToAction("FormText");
                 }

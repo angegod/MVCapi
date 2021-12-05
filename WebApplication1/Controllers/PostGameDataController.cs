@@ -21,28 +21,72 @@ namespace WebApplication1.Controllers
 
         [Route("api/PostGameRecords/Post")]
         [HttpPost]
-        public void Post(string getdata)
+        public HttpResponseMessage Post(int id)
+        {
+            try
+            {
+                HttpContent requestContent = Request.Content;
+                string getdata = requestContent.ReadAsStringAsync().GetAwaiter().GetResult();
+
+                PostGradesRecord data = JsonConvert.DeserializeObject<PostGradesRecord>(getdata);
+
+                string insert = "insert into Record (Studentcode,Grades,Corrects,Incorrects,Playtime,GameRecords) values(@Studentcode,@Grades,@Corrects,@Incorrects,@Playtime,@GameRecords)";
+                SqlCommand cmd = new SqlCommand(insert, mycon);
+
+                cmd.Parameters.Add("@Studentcode", SqlDbType.VarChar, 200).Value = data.StudentCode;
+                cmd.Parameters.Add("@Grades", SqlDbType.Int).Value = data.grades;
+                cmd.Parameters.Add("@Corrects", SqlDbType.Int).Value = data.Corrects;
+                cmd.Parameters.Add("@Incorrects", SqlDbType.Int).Value = data.Incorrects;
+                cmd.Parameters.Add("@Playtime", SqlDbType.Time).Value = TimeSpan.Parse(data.PlayTime);//時間轉換
+                cmd.Parameters.Add("@GameRecords", SqlDbType.VarChar).Value = data.Records;
+
+                cmd.CommandType = CommandType.Text;
+
+
+                mycon.Open();
+                cmd.ExecuteNonQuery();
+                mycon.Close();
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.ToString());
+            }
+
+        }
+
+        
+        [Route("api/PostGameData/DataPost")]
+        [HttpGet]
+        public string  DataPost(string getdata)
         {
 
-            GradesRecord data = JsonConvert.DeserializeObject<GradesRecord>(getdata);
+            try
+            {
+                PostGradesRecord data = JsonConvert.DeserializeObject<PostGradesRecord>(getdata);
 
-            string insert = "insert into Record (Studentcode,Grades,Corrects,Incorrects,Playtime,GameRecords) values(@Studentcode,@Grades,@Corrects,@Incorrects,@Playtime,@GameRecords)";
-            SqlCommand cmd = new SqlCommand(insert, mycon);
+                string insert = "insert into Record (Studentcode,Grades,Corrects,Incorrects,Playtime,GameRecords) values(@Studentcode,@Grades,@Corrects,@Incorrects,@Playtime,@GameRecords)";
+                SqlCommand cmd = new SqlCommand(insert, mycon);
 
-            cmd.Parameters.Add("@Studentcode", SqlDbType.VarChar, 200).Value = data.StudentCode;
-            cmd.Parameters.Add("@Grades", SqlDbType.Int).Value = data.grades;
-            cmd.Parameters.Add("@Corrects", SqlDbType.Int).Value = data.Corrects;
-            cmd.Parameters.Add("@Incorrects", SqlDbType.Int).Value = data.Incorrects;
-            cmd.Parameters.Add("@Playtime", SqlDbType.Time).Value = TimeSpan.Parse(data.PlayTime);//時間轉換
-            cmd.Parameters.Add("@GameRecords", SqlDbType.VarChar).Value = data.Records;
+                cmd.Parameters.Add("@Studentcode", SqlDbType.VarChar, 200).Value = data.StudentCode;
+                cmd.Parameters.Add("@Grades", SqlDbType.Int).Value = data.grades;
+                cmd.Parameters.Add("@Corrects", SqlDbType.Int).Value = data.Corrects;
+                cmd.Parameters.Add("@Incorrects", SqlDbType.Int).Value = data.Incorrects;
+                cmd.Parameters.Add("@Playtime", SqlDbType.Time).Value = TimeSpan.Parse(data.PlayTime);//時間轉換
+                cmd.Parameters.Add("@GameRecords", SqlDbType.VarChar).Value = data.Records;
 
-            cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.Text;
 
 
-            mycon.Open();
-            cmd.ExecuteNonQuery();
-            mycon.Close();
-
+                mycon.Open();
+                cmd.ExecuteNonQuery();
+                mycon.Close();
+                return "Success";
+            }
+            catch(Exception e)
+            {
+                return "Errors";
+            }
 
            
         }

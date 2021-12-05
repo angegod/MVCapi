@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         public string Get(string classcode)
         {
             string login = "select * from typechoose where classcode=@classcode";//connection
-            string conn = "Server=TR\\SQLEXPRESS;Database=question;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
+            string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
 
             SqlConnection mycon = new SqlConnection(conn);
            
@@ -44,9 +44,10 @@ namespace WebApplication1.Controllers
                     string answer = mydr1.GetString(5);
                     int difficulty = mydr1.GetInt32(7);
                     string detailed = mydr1.GetString(8);
+                    string Questioncode = mydr1.GetString(9);
 
 
-                    QuestionList.Add(new Questionchoose(id, question, optionsA, optionsB, optionsC, answer, detailed, difficulty));
+                    QuestionList.Add(new Questionchoose(id, question, optionsA, optionsB, optionsC, answer, detailed, difficulty,Questioncode));
                 }
                 mydr1.NextResult();
 
@@ -82,7 +83,7 @@ namespace WebApplication1.Controllers
         public string Get(string classcode)
         {
             string login = "select * from typeyesno where classcode=@classcode";//connection
-            string conn = "Server=TR\\SQLEXPRESS;Database=question;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
+            string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
 
             SqlConnection mycon = new SqlConnection(conn);
 
@@ -102,8 +103,9 @@ namespace WebApplication1.Controllers
                     string answer = mydr.GetString(2);
                     int difficulty = mydr.GetInt32(4);
                     string detailed = mydr.GetString(5);
+                    string Questioncode = mydr.GetString(6);
 
-                    QuestionList.Add(new Questionyesno(id, question, answer, detailed, difficulty));
+                    QuestionList.Add(new Questionyesno(id, question, answer, detailed, difficulty,Questioncode));
                 }
                 mydr.NextResult();
             }

@@ -16,7 +16,7 @@ namespace WebApplication1.Models
     public class Questionchoose
     {
 
-        public Questionchoose(int id1,string question1,string optionsA1,string optionsB1,string optionsC1,string answer1,string detailed1,int  difficulty1)
+        public Questionchoose(int id1,string question1,string optionsA1,string optionsB1,string optionsC1,string answer1,string detailed1,int  difficulty1,string Questioncode1)
         {
             id = id1;
             question = question1;
@@ -26,6 +26,7 @@ namespace WebApplication1.Models
             answer = answer1;
             detailed = detailed1;
             difficulty = difficulty1;
+            Questioncode = Questioncode1;
         }
 
         public int id { get; set; }
@@ -43,19 +44,21 @@ namespace WebApplication1.Models
 
         public int  difficulty { get; set; }
 
+        public string Questioncode { get; set; }
+
         
 
     }
     public class Questionyesno
     {
-        public Questionyesno(int id1, string question1, string answer1, string detailed1, int difficulty1)
+        public Questionyesno(int id1, string question1, string answer1, string detailed1, int difficulty1,string Questioncode1)
         {
             id = id1;
             question = question1;
             answer = answer1;
             detailed = detailed1;
             difficulty = difficulty1;
-
+            Questioncode = Questioncode1;
         }
         public int id { get; set; }
 
@@ -66,5 +69,7 @@ namespace WebApplication1.Models
         public string detailed { get; set; }
 
         public int  difficulty { get; set;}
+
+        public string Questioncode { get; set; }
     }
 }
