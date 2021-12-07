@@ -158,6 +158,7 @@
     <Compile Include="Controllers\GetQuestionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostGameDataController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\TeacherDeleteController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Models\PostQuestionRecord.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionRecord.cs" />
+    <Compile Include="Models\Student.cs" />
     <Compile Include="Models\TeacherAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
