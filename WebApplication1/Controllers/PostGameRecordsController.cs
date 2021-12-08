@@ -19,16 +19,12 @@ namespace WebApplication1.Controllers
         public static string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
         SqlConnection mycon = new SqlConnection(conn);
 
-        [Route("api/PostGameRecords/Post")]
         [HttpPost]
-        public HttpResponseMessage Post(int id)
+        public string Post([FromBody]string  Postdata)
         {
             try
             {
-                HttpContent requestContent = Request.Content;
-                string getdata = requestContent.ReadAsStringAsync().GetAwaiter().GetResult();
-
-                PostGradesRecord data = JsonConvert.DeserializeObject<PostGradesRecord>(getdata);
+                PostGradesRecord data = JsonConvert.DeserializeObject<PostGradesRecord>(Postdata);
 
                 string insert = "insert into Record (Studentcode,Grades,Corrects,Incorrects,Playtime,GameRecords) values(@Studentcode,@Grades,@Corrects,@Incorrects,@Playtime,@GameRecords)";
                 SqlCommand cmd = new SqlCommand(insert, mycon);
@@ -46,17 +42,17 @@ namespace WebApplication1.Controllers
                 mycon.Open();
                 cmd.ExecuteNonQuery();
                 mycon.Close();
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return "OK";
             }
             catch(Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.ToString());
+                return e.ToString();
             }
 
         }
 
         
-        [Route("api/PostGameData/DataPost")]
+        [Route("api/PostGameRecords/DataPost")]
         [HttpGet]
         public string  DataPost(string getdata)
         {
@@ -87,8 +83,10 @@ namespace WebApplication1.Controllers
             {
                 return "Errors";
             }
-
-           
         }
+
+        
+
+
     }
 }
