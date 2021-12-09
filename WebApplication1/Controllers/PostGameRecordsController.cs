@@ -19,11 +19,17 @@ namespace WebApplication1.Controllers
         public static string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
         SqlConnection mycon = new SqlConnection(conn);
 
+        [Route("api/PostGameRecords/")]
         [HttpPost]
-        public string Post([FromBody]string  Postdata)
+        public string Post([FromBody]string Postdata)
         {
-            try
+            if (string.IsNullOrEmpty(Postdata))//null 偵測
             {
+                return "Nodata can process";
+            }
+            try
+            { 
+
                 PostGradesRecord data = JsonConvert.DeserializeObject<PostGradesRecord>(Postdata);
 
                 string insert = "insert into Record (Studentcode,Grades,Corrects,Incorrects,Playtime,GameRecords) values(@Studentcode,@Grades,@Corrects,@Incorrects,@Playtime,@GameRecords)";
@@ -42,19 +48,18 @@ namespace WebApplication1.Controllers
                 mycon.Open();
                 cmd.ExecuteNonQuery();
                 mycon.Close();
-                return "OK";
+                return  "OK";
             }
             catch(Exception e)
             {
-                return e.ToString();
+                return Postdata+"   "+e.ToString();
             }
 
         }
 
-        
         [Route("api/PostGameRecords/DataPost")]
         [HttpGet]
-        public string  DataPost(string getdata)
+        public string DataPost(string getdata)
         {
 
             try
@@ -79,13 +84,16 @@ namespace WebApplication1.Controllers
                 mycon.Close();
                 return "Success";
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return "Errors";
             }
         }
 
-        
+
+
+
+
 
 
     }
