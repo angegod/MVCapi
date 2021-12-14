@@ -23,6 +23,13 @@ namespace WebApplication1.Controllers
         public string Confirm(string username,string password)
         {
             string Result = "null";
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return Result;
+            }
+            
+            
+            
             string login = "select * from Account where Accountname=@Accountname";//connection
             SqlCommand cmd = new SqlCommand(login, mycon);
 

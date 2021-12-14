@@ -65,7 +65,7 @@ namespace WebApplication1.Controllers
                 TempData["data"] = Postdata;
                 //HTTP POST
                 client.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                var result = client.UploadString("http://localhost:7700/api/PostGameRecords/", "POST", Postdata);
+                var result = client.UploadString("http://localhost:7700/api/PostGameRecords/", "OPTIONS", Postdata);
 
                                
                 

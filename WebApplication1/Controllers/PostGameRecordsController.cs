@@ -11,15 +11,13 @@ using Newtonsoft.Json;
 
 namespace WebApplication1.Controllers
 {
-   
-
     public class PostGameRecordsController : ApiController
     {
-
         public static string conn = "Server=TR\\SQLEXPRESS;Database=TheRich;uid=ange;pwd=ange0909;Trusted_Connection=True;MultipleActiveResultSets=True;";
         SqlConnection mycon = new SqlConnection(conn);
 
         [Route("api/PostGameRecords/")]
+        
         [HttpPost]
         public string Post([FromBody]string Postdata)
         {
@@ -52,7 +50,7 @@ namespace WebApplication1.Controllers
             }
             catch(Exception e)
             {
-                return Postdata+"   "+e.ToString();
+                return Postdata+" &  "+e.ToString();
             }
 
         }
